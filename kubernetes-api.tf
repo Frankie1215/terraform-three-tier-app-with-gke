@@ -62,3 +62,23 @@ resource "kubernetes_service" "api" {
     type = "ClusterIP"
   }
 }
+
+resource "kubernetes_horizontal_pod_autoscaler" "api" {
+  metadata {
+    name      = "api"
+    namespace = "app"
+  }
+
+  spec {
+    max_replicas = 5
+    min_replicas = 1
+
+    target_cpu_utilization_percentage = 60
+
+    scale_target_ref {
+      api_version = "apps/v1"
+      kind        = "Deployment"
+      name        = "api"
+    }
+  }
+}
