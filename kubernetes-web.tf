@@ -59,7 +59,7 @@ resource "kubernetes_service" "web" {
       target_port = 80
     }
 
-    type = "ClusterIP"
+    type = "NodePort"
   }
 }
 
@@ -83,6 +83,26 @@ resource "kubernetes_ingress_v1" "web" {
            }
         }
       }
+    }
+  }
+}
+
+resource "kubernetes_horizontal_pod_autoscaler" "web" {
+  metadata {
+    name      = "web"
+    namespace = "app"
+  }
+
+  spec {
+    max_replicas = 5
+    min_replicas = 1
+
+    target_cpu_utilization_percentage = 60
+
+    scale_target_ref {
+      api_version = "apps/v1"
+      kind        = "Deployment"
+      name        = "web"
     }
   }
 }
