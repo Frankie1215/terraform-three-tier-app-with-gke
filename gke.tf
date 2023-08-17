@@ -66,14 +66,6 @@ resource "kubernetes_namespace" "example" {
   }
 }
 
-data "terraform_remote_state" "gke" {
-  backend = "local"
-
-  config = {
-    path = "../learn-terraform-provision-gke-cluster/terraform.tfstate"
-  }
-}
-
 data "google_client_config" "default" {}
 
 provider "kubernetes" {
