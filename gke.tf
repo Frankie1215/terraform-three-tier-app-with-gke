@@ -52,6 +52,12 @@ resource "google_container_node_pool" "primary_nodes" {
       disable-legacy-endpoints = "true"
     }
   }
+
+  autoscaling {
+    total_min_node_count  = 3
+    total_max_node_count  = 6
+    location_policy       = "BALANCED"
+  }
 }
 
 resource "kubernetes_namespace" "example" {
