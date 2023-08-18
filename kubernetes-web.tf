@@ -69,17 +69,11 @@ resource "kubernetes_ingress_v1" "web" {
   }
 
   spec {
-      rule {
-        http {
-         path {
-           backend {
-             service {
-               name = "web"
-               port {
-                 number = 80
-               }
-             }
-           }
+    default_backend {
+      service {
+        name = "web"
+        port {
+          number = 80
         }
       }
     }
