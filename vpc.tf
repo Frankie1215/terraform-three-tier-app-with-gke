@@ -26,6 +26,16 @@ resource "google_compute_subnetwork" "subnet" {
   region        = var.region
   network       = google_compute_network.vpc.name
   ip_cidr_range = "10.10.0.0/24"
+
+  secondary_ip_range {
+    range_name    = "services"
+    ip_cidr_range = "10.122.128.0/22"
+  }
+
+  secondary_ip_range {
+    range_name    = "pods"
+    ip_cidr_range = "10.122.0.0/17"
+  }
 }
 
 resource "google_compute_global_address" "private_ip_address" {

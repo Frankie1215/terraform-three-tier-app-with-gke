@@ -24,6 +24,11 @@ resource "google_container_cluster" "primary" {
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
+  
+  ip_allocation_policy {
+    cluster_secondary_range_name  = "pods"
+    services_secondary_range_name = "services"
+  }
 }
 
 # Separately Managed Node Pool
@@ -60,7 +65,7 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-resource "kubernetes_namespace" "example" {
+resource "kubernetes_namespace" "app" {
   metadata {
     name = "app"
   }
