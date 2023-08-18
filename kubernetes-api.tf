@@ -21,7 +21,7 @@ resource "kubernetes_deployment" "api" {
       }
       spec {
         container {
-          image = "nginx:1.7.8"
+          image = "nginx:1.24"
           name  = "api"
 
           port {
