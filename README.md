@@ -4,3 +4,18 @@ This repo is a companion repo to the [Provision a GKE Cluster tutorial](https://
 
 This sample repo also creates a VPC and subnet for the GKE cluster. This is not
 required but highly recommended to keep your GKE cluster isolated.
+
+## Structure
+![Alt text](Infrastructure.png)
+
+## Environment variables
+
+In **terraform.tfvars**:
+
+**project_id** - (Required) GCP Project id
+
+**region** - (Required) GCP Region
+
+**db_api_username** - (Required) Cloud SQL Username for API
+
+**db_api_password** - (Required) Cloud SQL Password for API
