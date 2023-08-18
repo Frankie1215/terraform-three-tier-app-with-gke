@@ -66,6 +66,8 @@ resource "google_container_node_pool" "primary_nodes" {
 }
 
 resource "kubernetes_namespace" "app" {
+  depends_on = [google_container_node_pool.primary_nodes]
+
   metadata {
     name = "app"
   }

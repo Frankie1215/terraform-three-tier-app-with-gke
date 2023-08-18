@@ -1,7 +1,7 @@
 resource "kubernetes_deployment" "web" {
   metadata {
     name = "web"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
     labels = {
       App = "web"
     }
@@ -47,7 +47,7 @@ resource "kubernetes_deployment" "web" {
 resource "kubernetes_service" "web" {
   metadata {
     name = "web"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
   }
   spec {
     selector = {
@@ -65,7 +65,7 @@ resource "kubernetes_service" "web" {
 resource "kubernetes_ingress_v1" "web" {
   metadata {
     name = "web"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
   }
 
   spec {
@@ -83,7 +83,7 @@ resource "kubernetes_ingress_v1" "web" {
 resource "kubernetes_horizontal_pod_autoscaler" "web" {
   metadata {
     name      = "web"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
   }
 
   spec {

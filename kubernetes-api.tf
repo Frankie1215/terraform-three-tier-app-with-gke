@@ -1,7 +1,7 @@
 resource "kubernetes_deployment" "api" {
   metadata {
     name = "api"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
     labels = {
       App = "api"
     }
@@ -47,7 +47,7 @@ resource "kubernetes_deployment" "api" {
 resource "kubernetes_service" "api" {
   metadata {
     name = "api"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
   }
   spec {
     selector = {
@@ -65,7 +65,7 @@ resource "kubernetes_service" "api" {
 resource "kubernetes_horizontal_pod_autoscaler" "api" {
   metadata {
     name      = "api"
-    namespace = "app"
+    namespace = kubernetes_namespace.app.metadata.0.name
   }
 
   spec {
